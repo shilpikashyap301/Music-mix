@@ -1,0 +1,36 @@
+Weightless|Marconi Union|relaxed|instrumental|4.9
+Sunset Lover|Petit Biscuit|relaxed|lo-fi|4.8
+Ocean Drive|Duke Dumont|relaxed|electronic|4.7
+River Flows in You|Yiruma|relaxed|instrumental|4.9
+Banana Pancakes|Jack Johnson|relaxed|pop|4.7
+Wish You Were Here|Pink Floyd|relaxed|rock|4.9
+Happy|Pharrell Williams|happy|pop|4.9
+Don't Stop Me Now|Queen|happy|rock|4.9
+Can't Stop the Feeling!|Justin Timberlake|happy|pop|4.8
+Levels|Avicii|happy|electronic|4.9
+Sunday Morning|Lofi Fruits Music|happy|lo-fi|4.7
+Spring Waltz|Frédéric Chopin|happy|instrumental|4.8
+Someone Like You|Adele|sad|pop|4.9
+Fix You|Coldplay|sad|rock|4.9
+Comptine d'un autre été|Yann Tiersen|sad|instrumental|4.9
+death bed (coffee for your head)|Powfu ft. beabadoobee|sad|lo-fi|4.8
+Shelter (Piano Reprise)|Porter Robinson & Madeon|sad|electronic|4.7
+All I Want|Kodaline|sad|romantic|4.8
+Titanium|David Guetta ft. Sia|energetic|electronic|4.9
+Eye of the Tiger|Survivor|energetic|rock|4.9
+Blinding Lights|The Weeknd|energetic|pop|4.9
+Believer|Imagine Dragons|energetic|rock|4.8
+Flight of the Bumblebee|David Garrett|energetic|instrumental|4.7
+Tokyo Beats (Fast Flip)|Chillhop Beats|energetic|lo-fi|4.6
+Perfect|Ed Sheeran|romantic|romantic|4.9
+Until I Found You|Stephen Sanchez|romantic|romantic|4.9
+Just the Way You Are|Bruno Mars|romantic|pop|4.8
+I Don't Want to Miss a Thing|Aerosmith|romantic|rock|4.9
+Affection|Jinsang|romantic|lo-fi|4.7
+Can't Help Falling in Love|Daniel Jang|romantic|instrumental|4.9
+1 AM Study Session|Lofi Girl|focused|lo-fi|4.9
+Experience|Ludovico Einaudi|focused|instrumental|4.9
+Clair de Lune|Claude Debussy|focused|instrumental|4.9
+Strobe|deadmau5|focused|electronic|4.8
+Marooned|Pink Floyd|focused|rock|4.8
+Attention (Lofi Piano Study)|Kuma Sounds|focused|pop|4.7

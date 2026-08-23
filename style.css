@@ -1,0 +1,154 @@
+/* MusicMix - Custom CSS (Preserving Stitch Design System) */
+
+:root {
+    --bg-main: #0F172A;
+    --card-bg: #1E1B4B;
+    --primary: #d0bcff;
+    --primary-gradient-from: #8B5CF6;
+    --primary-gradient-to: #EC4899;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: #e0e3e5;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Glassmorphism Card Style */
+.card-bg {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-card {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+    background-color: rgba(30, 27, 75, 0.7);
+    border-color: rgba(139, 92, 246, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0px 14px 34px rgba(0, 0, 0, 0.6);
+}
+
+/* Chips */
+.mood-chip, .glass-chip {
+    background-color: #1E1B4B;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    height: 32px;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.mood-chip:hover {
+    background-color: rgba(139, 92, 246, 0.15);
+    border-color: #8B5CF6;
+    transform: translateY(-1px);
+}
+
+.mood-chip.active {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.35), rgba(236, 72, 153, 0.35));
+    border-color: #8B5CF6;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+}
+
+/* Custom Select Dropdown */
+.custom-select {
+    background-color: #1E1B4B;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e0e3e5;
+    transition: all 0.2s ease;
+}
+
+.custom-select:focus {
+    border-color: #8B5CF6;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.3);
+}
+
+.custom-select option {
+    background-color: #191c1e;
+    color: #e0e3e5;
+    padding: 8px;
+}
+
+/* Buttons */
+.primary-btn {
+    background: linear-gradient(135deg, #8B5CF6, #EC4899);
+    box-shadow: 0px 4px 14px rgba(139, 92, 246, 0.4);
+    transition: filter 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.primary-btn:hover {
+    filter: brightness(1.1);
+    box-shadow: 0px 6px 20px rgba(139, 92, 246, 0.6);
+}
+
+.primary-btn:active {
+    transform: scale(0.98);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 1px solid #8B5CF6;
+    color: #d0bcff;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(139, 92, 246, 0.15);
+    border-color: #a078ff;
+    color: #ffffff;
+    box-shadow: 0px 4px 14px rgba(139, 92, 246, 0.25);
+}
+
+.btn-secondary:active {
+    transform: scale(0.98);
+}
+
+/* Top App Bar */
+.top-app-bar {
+    background-color: rgba(16, 20, 21, 0.85);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* View transitions */
+.screen-view {
+    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0F172A;
+}
+::-webkit-scrollbar-thumb {
+    background: #272a2c;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #363a3b;
+}

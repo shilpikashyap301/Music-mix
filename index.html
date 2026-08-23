@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>MusicMix - Mood-Based Music Recommendation System</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Google Fonts: Inter & Material Symbols -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Custom Configuration from Stitch Design -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary": "#283044",
+                        "surface-dim": "#101415",
+                        "primary": "#d0bcff",
+                        "error": "#ffb4ab",
+                        "on-error": "#690005",
+                        "inverse-on-surface": "#2d3133",
+                        "primary-fixed": "#e9ddff",
+                        "on-tertiary-container": "#22293d",
+                        "on-surface": "#e0e3e5",
+                        "on-surface-variant": "#cbc3d7",
+                        "on-secondary": "#640039",
+                        "secondary-fixed-dim": "#ffb0cd",
+                        "outline-variant": "#494454",
+                        "on-background": "#e0e3e5",
+                        "secondary-container": "#aa0266",
+                        "on-primary-fixed": "#23005c",
+                        "tertiary-fixed-dim": "#bec6e0",
+                        "surface": "#101415",
+                        "surface-variant": "#323537",
+                        "background": "#101415",
+                        "on-primary-container": "#340080",
+                        "primary-fixed-dim": "#d0bcff",
+                        "primary-container": "#a078ff",
+                        "inverse-surface": "#e0e3e5",
+                        "on-secondary-fixed-variant": "#8c0053",
+                        "surface-container": "#1d2022",
+                        "surface-container-highest": "#323537",
+                        "tertiary-container": "#8990a8",
+                        "on-tertiary-fixed": "#131b2e",
+                        "on-secondary-fixed": "#3e0022",
+                        "on-tertiary-fixed-variant": "#3f465c",
+                        "surface-container-low": "#191c1e",
+                        "on-secondary-container": "#ffbad3",
+                        "inverse-primary": "#6d3bd7",
+                        "on-primary-fixed-variant": "#5516be",
+                        "tertiary-fixed": "#dae2fd",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#958ea0",
+                        "surface-tint": "#d0bcff",
+                        "tertiary": "#bec6e0",
+                        "on-primary": "#3c0091",
+                        "surface-container-high": "#272a2c",
+                        "secondary-fixed": "#ffd9e4",
+                        "surface-bright": "#363a3b",
+                        "error-container": "#93000a",
+                        "secondary": "#ffb0cd",
+                        "surface-container-lowest": "#0b0f10"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "gutter": "16px",
+                        "base": "4px",
+                        "sm": "12px",
+                        "xs": "8px",
+                        "md": "16px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "margin-desktop": "40px",
+                        "xl": "32px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"],
+                        "title-lg": ["Inter", "sans-serif"],
+                        "display-lg": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "headline-md-mobile": ["Inter", "sans-serif"],
+                        "headline-sm": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body class="font-body-md text-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container">
+
+    <!-- TopAppBar -->
+    <header class="top-app-bar docked full-width top-0 sticky backdrop-blur-md flex justify-between items-center px-lg py-sm w-full z-50">
+        <div id="brand-logo" class="flex items-center gap-xs text-primary cursor-pointer select-none">
+            <span class="material-symbols-outlined text-[26px]">headphones</span>
+            <h1 class="font-display-lg text-title-lg md:text-2xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold tracking-tight">MusicMix</h1>
+        </div>
+        <div class="flex items-center gap-sm">
+            <button id="back-btn" class="hidden text-on-surface-variant hover:text-primary transition-all active:scale-95 flex items-center gap-1 font-label-md text-label-md px-3 py-1.5 rounded-full border border-white/10 hover:border-primary/40 bg-surface-container/60 cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                <span>Back</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ================= PAGE 1: HOME SCREEN ================= -->
+    <main id="home-screen" class="screen-view flex-grow flex flex-col items-center justify-center px-margin-mobile md:px-margin-desktop py-xl md:py-16 max-w-4xl mx-auto w-full relative z-10">
+        <!-- Ambient background glow effect -->
+        <div aria-hidden="true" class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-25">
+            <div class="w-96 h-96 bg-primary-container rounded-full blur-[110px]"></div>
+            <div class="w-64 h-64 bg-secondary-container rounded-full blur-[90px] -ml-32 mt-32"></div>
+        </div>
+
+        <!-- Hero Header -->
+        <div class="text-center mb-xl z-10 relative">
+            <h2 class="font-display-lg text-display-lg md:text-[56px] md:leading-[64px] text-on-surface mb-sm hidden md:block tracking-tight font-extrabold">Find the music that matches your mood.</h2>
+            <h2 class="font-headline-md-mobile text-headline-md-mobile text-on-surface mb-sm md:hidden font-bold">Find the music that matches your mood.</h2>
+            <p class="font-title-lg text-title-lg text-on-surface-variant font-normal max-w-2xl mx-auto">Mood-Based Music Recommendation System</p>
+        </div>
+
+        <!-- Main Selection Card -->
+        <div class="card-bg rounded-2xl w-full max-w-md p-lg md:p-xl flex flex-col gap-lg z-10 relative backdrop-blur-xl">
+            <!-- Mood Selection -->
+            <div class="flex flex-col gap-xs">
+                <label class="font-label-md text-label-md text-on-surface-variant" for="mood-select">Select your mood</label>
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant opacity-70 pointer-events-none">sentiment_satisfied</span>
+                    <select class="custom-select w-full rounded-lg py-sm pl-10 pr-4 font-body-md text-body-md appearance-none cursor-pointer" id="mood-select">
+                        <option value="happy" selected>Happy</option>
+                        <option value="sad">Sad</option>
+                        <option value="relaxed">Relaxed</option>
+                        <option value="energetic">Energetic</option>
+                        <option value="romantic">Romantic</option>
+                        <option value="focused">Focused</option>
+                    </select>
+                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+                </div>
+            </div>
+
+            <!-- Genre Selection -->
+            <div class="flex flex-col gap-xs">
+                <label class="font-label-md text-label-md text-on-surface-variant" for="genre-select">Select genre <span class="opacity-50 font-normal">(Optional)</span></label>
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant opacity-70 pointer-events-none">album</span>
+                    <select class="custom-select w-full rounded-lg py-sm pl-10 pr-4 font-body-md text-body-md appearance-none cursor-pointer" id="genre-select">
+                        <option value="all" selected>All Genres</option>
+                        <option value="pop">Pop</option>
+                        <option value="rock">Rock</option>
+                        <option value="lo-fi">Lo-fi</option>
+                        <option value="instrumental">Instrumental</option>
+                        <option value="romantic">Romantic</option>
+                        <option value="electronic">Electronic</option>
+                    </select>
+                    <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+                </div>
+            </div>
+
+            <!-- Action Button -->
+            <button id="get-recommendations-btn" class="primary-btn rounded-full py-sm px-lg font-title-lg text-title-lg text-white flex items-center justify-center gap-sm w-full mt-sm group cursor-pointer">
+                <span class="material-symbols-outlined group-hover:animate-pulse">music_note</span>
+                <span id="btn-text">Get Recommendations</span>
+            </button>
+        </div>
+
+        <!-- Quick Mood Chips -->
+        <div class="mt-xl w-full max-w-2xl z-10 relative">
+            <p class="font-label-md text-label-md text-on-surface-variant text-center mb-md opacity-70 uppercase tracking-widest">Quick Select</p>
+            <div class="flex flex-wrap justify-center gap-sm">
+                <button type="button" data-mood="happy" class="quick-mood-chip mood-chip rounded-full px-md font-label-md text-label-md text-primary flex items-center gap-xs cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">sentiment_very_satisfied</span>Happy
+                </button>
+                <button type="button" data-mood="sad" class="quick-mood-chip mood-chip rounded-full px-md font-label-md text-label-md text-primary flex items-center gap-xs cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">sentiment_dissatisfied</span>Sad
+                </button>
+                <button type="button" data-mood="relaxed" class="quick-mood-chip mood-chip rounded-full px-md font-label-md text-label-md text-primary flex items-center gap-xs cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">self_improvement</span>Relaxed
+                </button>
+                <button type="button" data-mood="energetic" class="quick-mood-chip mood-chip rounded-full px-md font-label-md text-label-md text-primary flex items-center gap-xs cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">bolt</span>Energetic
+                </button>
+                <button type="button" data-mood="romantic" class="quick-mood-chip mood-chip rounded-full px-md font-label-md text-label-md text-primary flex items-center gap-xs cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">favorite</span>Romantic
+                </button>
+                <button type="button" data-mood="focused" class="quick-mood-chip mood-chip rounded-full px-md font-label-md text-label-md text-primary flex items-center gap-xs cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">psychology</span>Focused
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- ================= PAGE 2: RECOMMENDATION SCREEN ================= -->
+    <main id="recommendation-screen" class="screen-view hidden flex-grow px-margin-mobile md:px-margin-desktop py-lg max-w-4xl mx-auto w-full flex flex-col gap-xl z-10 relative">
+        <!-- Ambient background glow effect -->
+        <div aria-hidden="true" class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+            <div class="w-96 h-96 bg-primary-container rounded-full blur-[120px]"></div>
+            <div class="w-64 h-64 bg-secondary-container rounded-full blur-[90px] -ml-32 mt-32"></div>
+        </div>
+
+        <!-- Header Section -->
+        <section class="flex flex-col gap-xs text-center md:text-left z-10">
+            <h2 class="font-headline-md-mobile md:font-headline-md text-headline-md-mobile md:text-headline-md text-primary flex items-center justify-center md:justify-start gap-sm">
+                <span>Your Recommendations</span>
+                <span class="material-symbols-outlined text-2xl">headphones</span>
+            </h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">Here are some songs that match your mood.</p>
+        </section>
+
+        <!-- Selected Preferences Chips & NumPy Stats -->
+        <section class="flex flex-wrap items-center justify-between gap-sm z-10">
+            <div class="flex flex-wrap gap-sm justify-center md:justify-start">
+                <div id="mood-chip-display" class="glass-chip rounded-full px-md flex items-center justify-center font-label-md text-label-md text-primary">
+                    Mood: Happy
+                </div>
+                <div id="genre-chip-display" class="glass-chip rounded-full px-md flex items-center justify-center font-label-md text-label-md text-primary">
+                    Genre: All Genres
+                </div>
+            </div>
+
+            <!-- NumPy Ratings Statistics Badge -->
+            <div id="stats-container" class="hidden flex flex-wrap items-center gap-xs font-label-md text-label-md text-on-surface-variant">
+                <span class="glass-chip rounded-full px-sm flex items-center gap-1 text-[11px]">
+                    <span class="material-symbols-outlined text-[14px] text-primary">format_list_numbered</span>
+                    <span id="stats-count">0 tracks</span>
+                </span>
+                <span class="glass-chip rounded-full px-sm flex items-center gap-1 text-[11px]">
+                    <span class="material-symbols-outlined text-[14px] text-[#FBBF24]">star</span>
+                    <span>Avg: <strong id="stats-avg" class="text-primary">0.0</strong></span>
+                </span>
+                <span class="glass-chip rounded-full px-sm flex items-center gap-1 text-[11px]">
+                    <span class="material-symbols-outlined text-[14px] text-secondary">trending_up</span>
+                    <span>Top: <strong id="stats-top" class="text-secondary">0.0</strong></span>
+                </span>
+            </div>
+        </section>
+
+        <!-- Loading Indicator -->
+        <div id="loading-state" class="hidden flex flex-col items-center justify-center py-12 gap-3 z-10">
+            <div class="w-10 h-10 border-3 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">Finding best recommendations from Python...</p>
+        </div>
+
+        <!-- Recommendation Song List Container -->
+        <section id="song-list" class="flex flex-col gap-md z-10">
+            <!-- Dynamic song cards injected here via JS -->
+        </section>
+
+        <!-- Empty State Container -->
+        <div id="empty-state" class="hidden glass-card p-xl flex flex-col items-center justify-center text-center gap-md my-8 z-10">
+            <div class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-3xl">music_off</span>
+            </div>
+            <div class="flex flex-col gap-1">
+                <h3 class="font-title-lg text-title-lg text-on-surface font-semibold">No matching songs found.</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant">Try another mood or genre.</p>
+            </div>
+        </div>
+
+        <!-- Error State Container -->
+        <div id="error-state" class="hidden glass-card p-lg flex items-center gap-md border border-error/30 text-error my-4 z-10">
+            <span class="material-symbols-outlined text-2xl">error_outline</span>
+            <p id="error-text" class="font-body-md text-body-md">An error occurred while fetching recommendations.</p>
+        </div>
+
+        <!-- Bottom Action Button -->
+        <section class="mt-md flex justify-center w-full z-10">
+            <button id="try-another-mood-btn" class="btn-secondary rounded-full px-xl py-sm flex items-center gap-sm font-label-md text-label-md hover:bg-primary/10 transition-all active:scale-95 duration-200 w-full md:w-auto justify-center cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">sync</span>
+                <span>Try Another Mood</span>
+            </button>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-lg text-center z-10 relative pb-12 md:pb-lg mt-auto">
+        <p class="font-body-sm text-body-sm text-on-surface-variant opacity-50">MusicMix • Python Mood-Based Music Recommendation System</p>
+    </footer>
+
+    <!-- Client-Side JavaScript -->
+    <script src="/static/script.js"></script>
+</body>
+</html>
