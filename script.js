@@ -33,6 +33,36 @@ function escapeHtml(str) {
         .replace(/'/g, "&#039;");
 }
 
+async function getStaticRecommendations(mood, genre) {
+    const response = await fetch('music_data.txt');
+    if (!response.ok) {
+        throw new Error('Unable to load the music catalog.');
+    }
+
+    const songs = (await response.text())
+        .split('\n')
+        .map(line => line.trim())
+        .filter(line => line && !line.startsWith('#'))
+        .map(line => {
+            const [title, artist, songMood, songGenre, rating] = line.split('|');
+            return { title, artist, mood: songMood.toLowerCase(), genre: songGenre.toLowerCase(), rating: Number(rating) };
+        })
+        .filter(song => song.mood === mood && (genre === 'all' || song.genre.replace('-', '') === genre.replace('-', '')))
+        .sort((first, second) => second.rating - first.rating);
+
+    const ratings = songs.map(song => song.rating);
+    const average = ratings.length ? ratings.reduce((total, rating) => total + rating, 0) / ratings.length : 0;
+    return {
+        success: true,
+        songs,
+        stats: {
+            count: songs.length,
+            average_rating: Number(average.toFixed(2)),
+            highest_rating: ratings.length ? Math.max(...ratings) : 0
+        }
+    };
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // Screen Elements
     const homeScreen = document.getElementById('home-screen');
@@ -118,9 +148,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
             });
 
-            const result = await response.json();
+            const isApiResponse = response.headers.get('content-type')?.includes('application/json');
+            const result = isApiResponse
+                ? await response.json()
+                : await getStaticRecommendations(selectedMood, selectedGenre);
 
-            if (!response.ok || !result.success) {
+            if ((isApiResponse && !response.ok) || !result.success) {
                 throw new Error(result.error || 'Failed to fetch recommendations from Python backend.');
             }
 
